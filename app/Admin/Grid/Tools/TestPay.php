@@ -58,7 +58,7 @@ class TestPay extends AbstractTool
             'return_url' => route('index'),
             'status' => 0,
             'withdraw' => 0,
-            'type' => 1,
+            'type' => 2,
             'token' => 'alipay',
             'platform' => 'web'
         ]);

@@ -70,6 +70,7 @@ class GatewayController extends Controller
         $order->return_url = $data['return_url'];
         $order->out_trade_no = $data['out_trade_no'];
         $order->token = isset($data['type']) ? $data['type'] : 'alipay';
+        $order->type = TypeEnum::toType($order->token);
         $order->status = OrderEnum::UNPAID;
         if (!$order->save()) {
             return response()->json(['code' => 0, 'msg' => '生成订单失败']);

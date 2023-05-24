@@ -95,30 +95,31 @@ class OrderController extends Controller
     public function refund(Request $request)
     {
         return response()->json(['code' => 2, 'data' => '该功能未启用！']);
-        // $trade_no = $request->post('trade_no');
-        // $order = Order::query()->where('order_sn', $trade_no)->first();
-        // // 是否退款
-        // if ($order->status === OrderEnum::REFUND) {
-        //     return response()->json(['code' => 2, 'data' => "请不要重复申请退款！"]);
-        // }
-        // // 是否结账
-        // if ($order->withdraw === 1) {
-        //     return response()->json(['code' => 2, 'data' => "当前订单无法退款"]);
-        // }
-        // // 是否虚拟币
-        // if ($order->type === TypeEnum::VIRTUAL) {
-        //     return response()->json(['code' => 2, 'data' => "虚拟币无法申请退款！"]);
-        // }
-        // try {
-        //     $paymentService = new PaymentService($order->payment_id);
-        //     $result = $paymentService->refund($order);
-        //     $order->status = OrderEnum::REFUND; // 已退款
-        //     $order->save();
-        // } catch (\Exception $e) {
-        //     return response()->json(['code' => 2, 'message' => $e->getMessage()]);
-        // }
-        //
-        // return response()->json(['code' => 1, 'data' => $result]);
+
+        $trade_no = $request->post('trade_no');
+        $order = Order::query()->where('order_sn', $trade_no)->first();
+        // 是否退款
+        if ($order->status === OrderEnum::REFUND) {
+            return response()->json(['code' => 2, 'data' => "请不要重复申请退款！"]);
+        }
+        // 是否结账
+        if ($order->withdraw === 1) {
+            return response()->json(['code' => 2, 'data' => "当前订单无法退款"]);
+        }
+        // 是否虚拟币
+        if ($order->type === TypeEnum::VIRTUAL) {
+            return response()->json(['code' => 2, 'data' => "虚拟币无法申请退款！"]);
+        }
+        try {
+            $paymentService = new PaymentService($order->payment_id);
+            $result = $paymentService->refund($order);
+            $order->status = OrderEnum::REFUND; // 已退款
+            $order->save();
+        } catch (\Exception $e) {
+            return response()->json(['code' => 2, 'message' => $e->getMessage()]);
+        }
+
+        return response()->json(['code' => 1, 'data' => $result]);
     }
 
     /**
