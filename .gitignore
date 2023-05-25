@@ -6,6 +6,8 @@ composer.lock
 .phpunit.result.cache
 dcat_admin_ide_helper.php
 /database/update_bak.sql
+/storage/oauth-private.key
+/storage/oauth-public.key
 
 /resources/js
 /node_modules
