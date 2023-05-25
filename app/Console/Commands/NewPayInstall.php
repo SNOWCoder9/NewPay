@@ -58,6 +58,7 @@ class NewPayInstall extends Command
                     abort(500, '复制环境文件失败，请检查目录权限');
                 }
                 $this->saveToEnv([
+                    'APP_URL' => $this->ask('请输入站点域名（例如:https://newpay.com）', 'https://127.0.0.1'),
                     'DB_HOST' => $this->ask('请输入数据库地址（默认:localhost）', 'localhost'),
                     'DB_DATABASE' => $this->ask('请输入数据库名'),
                     'DB_USERNAME' => $this->ask('请输入数据库用户名'),
