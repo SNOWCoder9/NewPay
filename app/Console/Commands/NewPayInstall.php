@@ -63,6 +63,7 @@ class NewPayInstall extends Command
                     'DB_USERNAME' => $this->ask('请输入数据库用户名'),
                     'DB_PASSWORD' => $this->ask('请输入数据库密码')
                 ]);
+                \Artisan::call('config:clear');
             } else {
                 try {
                     DB::connection()->getPdo();
@@ -82,9 +83,7 @@ class NewPayInstall extends Command
             $this->info('正在导入数据库请稍等...');
             foreach ($sql as $item) {
                 try {
-                    echo "start\n";
                     DB::select(DB::raw($item));
-                    echo "end\n";
                 } catch (\Exception $e) {
                 }
             }
