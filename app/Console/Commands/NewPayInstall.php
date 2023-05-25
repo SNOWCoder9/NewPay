@@ -64,6 +64,7 @@ class NewPayInstall extends Command
                     'DB_PASSWORD' => $this->ask('请输入数据库密码')
                 ]);
                 \Artisan::call('config:clear');
+                \Artisan::call('config:cache');
             } else {
                 try {
                     DB::connection()->getPdo();
